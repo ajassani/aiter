@@ -29,8 +29,8 @@ flowchart LR
         V["Target verify<br/>4 query tokens<br/>(1 real + 3 drafted)"] --> A{"accept<br/>1-4 tokens"}
         A --> D["Draft<br/>1 query token per call"]
     end
-    V -. "15 attention calls<br/>(one per full-attention layer)" .-> UA[("aiter<br/>unified_attention")]
-    D -. "about 2 attention calls" .-> UA
+    V -.->|"15 attention calls<br/>(one per full-attention layer)"| UA[("aiter<br/>unified_attention")]
+    D -.->|"about 2 attention calls"| UA
 ```
 
 What one GPU sees in each attention call:

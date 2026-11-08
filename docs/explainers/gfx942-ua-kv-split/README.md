@@ -93,7 +93,7 @@ Figure 7 of [PyTorch, "Enabling vLLM V1 on AMD GPUs With Triton"](https://pytorc
 
 Split-KV (Flash-Decoding) cuts each sequence's context into **segments** and gives each segment its own program. The grid becomes (query blocks) × (KV heads) × (segments). Each program writes a partial result: its running max $m_s$, its running sum $\ell_s$ and its unnormalized output $A_s$. A second, small kernel ([`reduce_segments`](https://github.com/ROCm/aiter/blob/ef0a5a26b8cb38ea1308f827985e36cde964a6ab/aiter/ops/triton/_triton_kernels/attention/unified_attention.py#L1012)) merges them exactly:
 
-$$m = \max_s m_s, \qquad O = \frac{\sum_s e^{m_s - m} A_s}{\sum_s e^{m_s - m}\,\ell_s}$$
+$$m = \max_s m_s, \qquad O = \frac{\sum_s e^{m_s - m} A_s}{\sum_s e^{m_s - m} \ell_s}$$
 
 ```mermaid
 flowchart LR
